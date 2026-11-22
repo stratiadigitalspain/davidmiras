@@ -5,250 +5,368 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>David Mirás · Propuesta C · Memoria viva</title>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;800&amp;family=Inter:wght@400;500;600&amp;family=Permanent+Marker&amp;display=swap" rel="stylesheet">
-<style>
-body{margin:0;background:#0D0D0D}
-a{color:#0D0D0D}a:hover{color:#C81E14}
-</style>
-
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;800&family=Inter:wght@400;500;600&family=Permanent+Marker&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../barra.css">
+<style>
+:root{
+  --rojo:#E0261B; --rojo-osc:#A8120E; --negro:#0D0D0D; --crema:#F2EEE6; --crema-2:#E9E3D8; --gris:#5A554D;
+  --mano:'Permanent Marker',cursive; --titulo:Archivo,sans-serif;
+  --trazo:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 24' preserveAspectRatio='none'%3E%3Cpath d='M3 15c40-7 88-11 140-10 50 1 100 5 154-3l-2 8c-50 7-104 4-156 3-48-1-90 3-134 9z' fill='%23E0261B'/%3E%3C/svg%3E");
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:140px}
+body{margin:0;background:var(--crema);color:var(--negro);font:16px/1.55 Inter,system-ui,sans-serif}
+img{display:block;max-width:100%}
+a{color:inherit}
+.papel{background-color:var(--crema);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.mano{font-family:var(--mano);font-weight:400;line-height:1.2}
+.rojo{color:var(--rojo)}
+.inclinado{transform:rotate(-5deg);transform-origin:left center}
+.contenedor{max-width:1360px;margin:0 auto;padding:0 clamp(20px,4vw,48px)}
+.etiqueta{display:flex;align-items:center;gap:18px;margin:0;font:500 clamp(17px,1.6vw,21px)/1.2 var(--titulo);letter-spacing:.18em;text-transform:uppercase}
+.etiqueta::after{content:"";width:52px;height:10px;background:var(--trazo) center/100% 100% no-repeat}
+.boton{display:inline-flex;align-items:center;gap:14px;min-height:46px;padding:0 20px;border:2px solid currentColor;text-decoration:none;font:600 13px/1 Inter,sans-serif;letter-spacing:.12em;text-transform:uppercase;transition:background .2s,color .2s,border-color .2s}
+.boton svg{width:24px;height:12px;flex:none}
+.boton:hover{background:var(--rojo);border-color:var(--rojo);color:#fff}
+.boton.lleno{background:var(--rojo);border-color:var(--rojo);color:#fff}
+.boton.lleno:hover{background:var(--crema);border-color:var(--crema);color:var(--negro)}
+
+/* Cabecera */
+.cabecera{position:sticky;top:52px;z-index:50;border-bottom:3px solid var(--rojo)}
+.cabecera .contenedor{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:84px}
+.logo{display:flex;flex-direction:column;text-decoration:none;line-height:1}
+.logo b{font:400 clamp(26px,2.6vw,34px)/1 var(--mano);letter-spacing:.02em}
+.logo span{font-size:13px;letter-spacing:.06em;margin-top:5px}
+.menu{display:flex;align-items:center;gap:30px;font-size:14px;font-weight:500}
+.menu a{text-decoration:none;padding:6px 0;background:linear-gradient(var(--rojo),var(--rojo)) left bottom/0 2px no-repeat;transition:background-size .25s}
+.menu a:hover{background-size:100% 2px}
+.idioma{font-size:13px}.idioma a:first-child{color:var(--rojo);font-weight:600}
+.abrir{display:none;width:44px;height:44px;border:0;background:none;cursor:pointer;padding:0}
+.abrir span{display:block;width:26px;height:2.5px;background:var(--negro);margin:5px auto}
+
+/* Portada */
+.portada{position:relative;background:var(--negro);color:var(--crema);overflow:hidden}
+.portada-rejilla{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);min-height:min(78vh,720px)}
+.portada-texto{position:relative;z-index:2;padding:clamp(48px,7vw,96px) clamp(20px,4vw,48px);display:flex;flex-direction:column;justify-content:center;gap:26px;max-width:640px;margin-left:auto}
+.portada-texto .mano{font-size:clamp(20px,2vw,26px);margin:0}
+.portada h1{margin:0;font:800 clamp(46px,6.2vw,96px)/.92 var(--titulo);letter-spacing:-.02em;text-transform:uppercase}
+.portada h1 em{font-style:normal;color:var(--rojo)}
+.portada-texto p.sub{margin:0;max-width:440px;font-size:18px;color:#E2DDD3}
+.portada .boton{align-self:flex-start;color:var(--crema)}
+.ciudad{font-size:17px;color:#BDB7AC;margin:0}
+.portada-imagen{position:relative;min-height:420px}
+.portada-imagen img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%}
+.portada-imagen::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,var(--negro) 0%,rgba(13,13,13,.55) 22%,rgba(13,13,13,0) 48%),radial-gradient(ellipse at 70% 60%,rgba(224,38,27,.35),rgba(224,38,27,0) 65%)}
+.portada-imagen::after{content:"";position:absolute;inset:0;z-index:1;background:var(--rojo);mix-blend-mode:multiply;opacity:.28}
+.nota{position:absolute;z-index:2;margin:0;font-family:var(--mano);line-height:1.25;text-align:right;transform:rotate(-7deg)}
+.nota-1{right:clamp(16px,3vw,40px);top:10%;font-size:clamp(17px,1.6vw,22px)}
+.nota-2{right:clamp(16px,3vw,40px);top:44%;font-size:clamp(15px,1.4vw,19px);color:#E2DDD3}
+.firma{position:absolute;z-index:2;right:clamp(16px,3vw,40px);bottom:24px;margin:0;font:400 clamp(36px,4vw,56px)/1 var(--mano);color:var(--rojo);transform:rotate(-9deg)}
+
+/* Cinta roja */
+.cinta{background:var(--rojo);color:#fff;overflow:hidden;white-space:nowrap;padding:14px 0;font:400 clamp(20px,2.2vw,28px)/1.1 var(--mano)}
+.cinta-pista{display:inline-flex;gap:36px;animation:cinta 40s linear infinite;padding-left:36px}
+.cinta-pista span{flex:none}
+@keyframes cinta{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.cinta-pista{animation:none}}
+
+/* Obra */
+.obra{padding:clamp(56px,7vw,88px) 0}
+.obra-cabeza{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between;align-items:center;margin-bottom:32px}
+.enlace{display:inline-flex;align-items:center;gap:10px;min-height:44px;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-decoration:none}
+.enlace:hover{color:var(--rojo)}
+.obra-cuerpo{display:grid;grid-template-columns:minmax(0,1fr) 170px;gap:28px;align-items:center}
+.obras{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:22px}
+.pieza{margin:0;display:flex;flex-direction:column;gap:10px}
+.pieza-img{position:relative;overflow:hidden;aspect-ratio:4/5;background:var(--crema-2)}
+.pieza-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.pieza:hover .pieza-img img{transform:scale(1.05)}
+.pieza-img::after{content:"";position:absolute;left:0;right:0;bottom:0;height:5px;background:var(--rojo);transform:scaleX(0);transform-origin:left;transition:transform .35s}
+.pieza:hover .pieza-img::after{transform:scaleX(1)}
+.pieza figcaption{display:flex;justify-content:space-between;gap:8px;align-items:flex-end;font-size:13px;line-height:1.4}
+.pieza strong{display:block;font-size:15px;font-weight:600}
+.pieza small{display:block;color:var(--gris);font-size:13px}
+.mas{flex:none;width:36px;height:36px;border:0;border-radius:50%;background:none;cursor:pointer;font-size:24px;line-height:1;color:var(--negro)}
+.mas:hover{background:var(--rojo);color:#fff}
+.lema{font-size:clamp(24px,2.4vw,32px);color:var(--rojo);margin:0}
+.lema::after{content:"";display:block;width:60px;height:10px;margin-top:10px;background:var(--trazo) center/100% 100% no-repeat}
+
+/* Bloques en dos columnas */
+.duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+.panel-negro{background:var(--negro);color:var(--crema);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr)}
+.panel-texto{padding:clamp(36px,5vw,56px) clamp(20px,4vw,44px);display:flex;flex-direction:column;justify-content:center;gap:20px;position:relative}
+.panel-texto p{margin:0}
+.panel-negro .panel-texto p{color:#E2DDD3}
+.titulo-mano{font-size:clamp(26px,2.5vw,34px);margin:0}
+.raya{width:44px;height:10px;background:var(--trazo) center/100% 100% no-repeat}
+.foto-gris{width:100%;height:100%;min-height:340px;object-fit:cover;filter:grayscale(1) contrast(1.05)}
+.escultura{display:flex;flex-direction:column}
+.escultura .panel-texto{justify-content:flex-start}
+.escultura .nota-esc{position:absolute;right:clamp(20px,3vw,40px);top:36px;margin:0;font-size:clamp(18px,1.7vw,23px);text-align:right;transform:rotate(-8deg);color:var(--rojo)}
+.escultura-fotos{flex:1;display:grid;grid-template-columns:1fr 1fr;min-height:280px}
+.escultura-fotos img{width:100%;height:100%;object-fit:cover;filter:grayscale(1)}
+.panel-negro .boton{color:var(--crema)}
+.panel-texto .boton{align-self:flex-start}
+
+/* Vídeos */
+.videos{background:var(--negro);color:var(--crema);padding:clamp(56px,7vw,88px) 0;border-top:6px solid var(--rojo)}
+.videos .obra-cabeza .mano{font-size:clamp(22px,2.2vw,28px);margin:0;transform:rotate(-3deg)}
+.videos-rejilla{display:grid;grid-template-columns:2fr 1fr;gap:20px}
+.video{margin:0;display:flex;flex-direction:column;gap:12px}
+.video-marco{position:relative;overflow:hidden;height:clamp(280px,34vw,480px);background:#1A1A1A}
+.video-marco img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.video:hover .video-marco img{transform:scale(1.04)}
+.play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:84px;height:84px;border-radius:50%;border:2px solid var(--crema);background:var(--rojo);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 0 0 0 rgba(224,38,27,.6);animation:latido 2.4s infinite}
+.play svg{width:26px;height:26px;margin-left:4px}
+.video.peq .play{left:auto;top:auto;right:20px;bottom:20px;transform:none;width:60px;height:60px}
+@keyframes latido{70%{box-shadow:0 0 0 18px rgba(224,38,27,0)}100%{box-shadow:0 0 0 0 rgba(224,38,27,0)}}
+.video figcaption{font-size:15px;color:#E2DDD3}
+.video figcaption strong{color:var(--crema)}
+
+/* Instalación y sobre David */
+.instal{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);border-bottom:1px solid #D4CEC3}
+.instal img{width:100%;height:100%;min-height:340px;object-fit:cover}
+.sobre{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);align-items:center;border-bottom:1px solid #D4CEC3;border-left:1px solid #D4CEC3}
+.sobre blockquote{margin:0;font-style:italic}
+.sobre .autor{font-size:13px;color:var(--gris)}
+.sobre img{width:100%;height:100%;min-height:340px;object-fit:cover}
+.mano-roja{font-size:clamp(18px,1.7vw,22px);color:var(--rojo);margin:0}
+
+/* Exposiciones */
+.expos{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)}
+.expos-foto{position:relative;min-height:340px;background:var(--rojo-osc);color:#fff;display:flex;flex-direction:column;justify-content:space-between;padding:40px clamp(20px,4vw,44px);overflow:hidden}
+.expos-foto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;mix-blend-mode:multiply;opacity:.75;filter:grayscale(.3)}
+.expos-foto>*{position:relative}
+.expos-foto .etiqueta::after{filter:brightness(10)}
+.expos-foto .mano{font-size:clamp(28px,3vw,40px);margin:0}
+.expos-lista{padding:28px clamp(20px,4vw,44px);display:flex;flex-direction:column}
+.expos-lista ul{list-style:none;margin:0;padding:0}
+.expos-lista li{display:grid;grid-template-columns:130px minmax(0,1fr);gap:20px;padding:16px 0;border-bottom:1px solid #D4CEC3}
+.expos-lista li span:first-child{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--rojo)}
+.expos-lista li strong{display:block;font-weight:600}
+.expos-lista li small{display:block;font-size:14px;color:var(--gris)}
+.expos-lista .enlace{align-self:flex-end;margin-top:12px}
+
+/* Contacto */
+.contacto{background:var(--negro);color:var(--crema);border-top:6px solid var(--rojo)}
+.contacto .contenedor{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px;align-items:center;padding-top:56px;padding-bottom:56px}
+.contacto .etiqueta::after{filter:none}
+.contacto p{margin:0;color:#E2DDD3}
+.datos{display:flex;flex-direction:column;gap:12px;font-size:15px}
+.datos a,.datos span{display:inline-flex;align-items:center;gap:12px;text-decoration:none}
+.datos svg{width:20px;height:20px;flex:none}
+.redes{display:flex;gap:6px}
+.redes a{width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:50%}
+.redes a:hover{background:var(--rojo)}
+.firma-pie{margin:0;text-align:right;font:400 clamp(40px,4.4vw,60px)/1 var(--mano);transform:rotate(-5deg)}
+.firma-pie::after{content:"";display:block;width:70%;height:14px;margin:8px 0 0 auto;background:var(--trazo) center/100% 100% no-repeat}
+.legal{border-top:1px solid #2A2A2A;font-size:13px;color:#9C968C}
+.legal .contenedor{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding-top:18px;padding-bottom:22px;grid-template-columns:none}
+.legal a{color:#9C968C}
+
+/* Tablet */
+@media (max-width:1100px){
+  .obras{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .obra-cuerpo{grid-template-columns:1fr}
+  .lema{order:-1}
+  .duo,.instal-sobre{grid-template-columns:1fr}
+  .sobre{border-left:0}
+}
+/* Móvil */
+@media (max-width:760px){
+  .cabecera .contenedor{min-height:72px}
+  .abrir{display:block}
+  .menu{position:absolute;left:0;right:0;top:100%;flex-direction:column;align-items:flex-start;gap:4px;padding:12px 20px 20px;background:var(--crema);border-bottom:3px solid var(--rojo);display:none}
+  .menu.abierto{display:flex}
+  .menu a{font-size:18px;padding:10px 0}
+  .portada-rejilla{grid-template-columns:1fr;min-height:0}
+  .portada-imagen{position:absolute;inset:0}
+  .portada-imagen::before{background:linear-gradient(180deg,rgba(13,13,13,.25) 0%,rgba(13,13,13,.6) 45%,var(--negro) 92%)}
+  .portada-texto{padding-top:200px;padding-bottom:48px;margin:0}
+  .nota-1{top:22px}.nota-2,.firma{display:none}
+  .obras{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:16px;margin-right:-20px;padding:0 20px 8px 0;scrollbar-width:none}
+  .lema{font-size:22px}.lema br{display:none}.lema::after{display:none}
+  .obras::-webkit-scrollbar{display:none}
+  .pieza{flex:0 0 78%;scroll-snap-align:start}
+  .panel-negro,.instal,.sobre,.expos,.videos-rejilla{grid-template-columns:1fr}
+  .foto-gris,.instal img,.sobre img{min-height:260px;max-height:340px}
+  .escultura .nota-esc{position:static;transform:rotate(-4deg);text-align:left}
+  .expos-lista li{grid-template-columns:1fr;gap:4px}
+  .contacto .contenedor{grid-template-columns:1fr}
+  .firma-pie{text-align:left}.firma-pie::after{margin-left:0}
+}
+</style>
 </head>
 <body>
 <nav class="dm-barra" aria-label="Propuestas de diseño"><span class="dm-marca">David Mirás · Propuestas</span><div class="dm-pestanas"><a href="../index.html">Inicio</a><a href="../propuesta-a/index.html"><b>A</b> Manifiesto rojo</a><a href="../propuesta-b/index.html"><b>B</b> Noche roja</a><a href="../propuesta-c/index.html" aria-current="page"><b>C</b> Memoria viva</a><a href="../propuesta-d/index.html"><b>D</b> Cal y oro</a><a href="../propuesta-e/index.html"><b>E</b> Madrugada</a><a href="../propuesta-f/index.html"><b>F</b> Amapola</a><a href="../propuesta-g/index.html"><b>G</b> La sala</a><a href="../propuesta-h/index.html"><b>H</b> Espejos</a></div></nav>
 
-<div style="background: #F2EEE6; color: #0D0D0D; font-family: Inter, system-ui, sans-serif; font-size: 16px; line-height: 1.55">
-
-<header style="max-width: 1360px; margin: 0 auto; padding: 22px 40px; display: flex; flex-wrap: wrap; gap: 16px 40px; align-items: center; justify-content: space-between">
-<a href="#inicio" style="display: flex; flex-direction: column; text-decoration: none; line-height: 1">
-<span style="font-family: 'Permanent Marker', cursive; font-size: 34px; letter-spacing: 0.02em">DAVID MIRÁS</span>
-<span style="font-size: 13px; letter-spacing: 0.06em; margin-top: 4px">Pintura · Dibujo · Escultura</span>
-</a>
-<nav aria-label="Principal" style="display: flex; flex-wrap: wrap; gap: 8px 32px; align-items: center; font-size: 14px; font-weight: 500">
-<a href="#obra" style="text-decoration: none">Obra</a>
-<a href="#videos" style="text-decoration: none">Vídeos</a>
-<a href="#exposiciones" style="text-decoration: none">Exposiciones</a>
-<a href="#sobre" style="text-decoration: none">Sobre David</a>
-<a href="#contacto" style="text-decoration: none">Contacto</a>
-<span style="font-size: 13px"><a href="#" style="text-decoration: underline">ES</a> | <a href="#" style="text-decoration: none">EN</a></span>
-</nav>
+<header class="cabecera papel">
+  <div class="contenedor">
+    <a class="logo" href="#inicio"><b>DAVID MIRÁS</b><span>Pintura · Dibujo · Escultura</span></a>
+    <button class="abrir" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+    <nav class="menu" id="menu" aria-label="Principal">
+      <a href="#obra">Obra</a>
+      <a href="#videos">Vídeos</a>
+      <a href="#exposiciones">Exposiciones</a>
+      <a href="#sobre">Sobre David</a>
+      <a href="#contacto">Contacto</a>
+      <span class="idioma"><a href="#">ES</a> | <a href="#">EN</a></span>
+    </nav>
+  </div>
 </header>
 
-<section id="inicio" style="background: #0D0D0D; color: #F2EEE6; position: relative; overflow: hidden">
-<div style="max-width: 1360px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 480px), 1fr)); min-height: 640px">
-<div style="padding: 64px 40px; display: flex; flex-direction: column; justify-content: center; gap: 28px; position: relative; z-index: 1">
-<p style="margin: 0; font-family: 'Permanent Marker', cursive; font-size: 24px; line-height: 1.25; color: #E0261B; transform: rotate(-4deg); transform-origin: left">El instante<br>produce<br>el acontecimiento</p>
-<h1 style="margin: 0; font-family: Archivo, sans-serif; font-weight: 800; font-size: clamp(56px, 6.4vw, 92px); line-height: 0.92; letter-spacing: -0.02em; text-transform: uppercase">Mundos reales e imaginados</h1>
-<p style="margin: 0; max-width: 440px; font-size: 18px; color: #E2DDD3">Pintura, dibujo y escultura. Una exploración constante de la memoria, la identidad y los vínculos humanos.</p>
-<a href="#obra" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 18px; min-height: 52px; padding: 0 26px; border: 2px solid #F2EEE6; color: #F2EEE6; text-decoration: none; font-size: 14px; font-weight: 600; letter-spacing: 0.12em">VER OBRA <svg aria-hidden="true" width="26" height="12" viewBox="0 0 26 12" fill="none" stroke="#F2EEE6" stroke-width="1.8"><path d="M0 6h24M19 1l5 5-5 5"></path></svg></a>
-<p style="margin: 0; font-family: 'Permanent Marker', cursive; font-size: 16px; color: #BDB7AC">Barcelona</p>
-</div>
-<div style="position: relative; min-height: 640px">
-<img src="../img/dj-en-pareja.jpg" alt="Dibujo digital de una pareja en tonos rojos y rosas" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover; display: block">
-<div style="position: absolute; left: 0; top: 0; bottom: 0; width: 40%; background: linear-gradient(90deg, #0D0D0D, rgba(13,13,16,0))"></div>
-<p style="position: absolute; right: 32px; top: 48px; margin: 0; font-family: 'Permanent Marker', cursive; font-size: 20px; line-height: 1.3; text-align: right; transform: rotate(-6deg)">Pintura<br>dibujo<br>escultura</p>
-<p style="position: absolute; right: 28px; bottom: 32px; margin: 0; font-family: 'Permanent Marker', cursive; font-size: 40px; color: #E0261B; transform: rotate(-8deg)">Mirás</p>
-</div>
-</div>
+<main>
+<section id="inicio" class="portada">
+  <div class="portada-rejilla">
+    <div class="portada-texto">
+      <p class="mano rojo inclinado">El instante<br>produce<br>el acontecimiento</p>
+      <h1>Mundos <em>reales</em> e imaginados</h1>
+      <p class="sub">Pintura, dibujo y escultura. Una exploración constante de la memoria, la identidad y los vínculos humanos.</p>
+      <a class="boton" href="#obra">Ver obra <svg viewBox="0 0 26 12" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M0 6h24M19 1l5 5-5 5"/></svg></a>
+      <p class="ciudad mano">Barcelona</p>
+    </div>
+    <div class="portada-imagen">
+      <img src="../img/dj-en-pareja.jpg" alt="Dibujo digital de David Mirás: una pareja sobre fondo rojo">
+      <p class="nota nota-1">Pintura<br>dibujo<br>escultura</p>
+      <p class="nota nota-2">Ideas<br>personas<br>espacios<br>vida</p>
+      <p class="firma">Mirás</p>
+    </div>
+  </div>
 </section>
 
-<section id="obra" style="max-width: 1360px; margin: 0 auto; padding: 72px 40px">
-<div style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center; margin-bottom: 32px">
-<h2 style="margin: 0; display: flex; align-items: center; gap: 20px; font-family: Archivo, sans-serif; font-weight: 500; font-size: 22px; letter-spacing: 0.18em; text-transform: uppercase">Obra destacada <span aria-hidden="true" style="display: inline-block; width: 48px; height: 1px; background: #0D0D0D"></span></h2>
-<a href="#" style="display: inline-flex; align-items: center; gap: 10px; min-height: 44px; font-size: 13px; font-weight: 600; letter-spacing: 0.1em">VER TODA LA OBRA <svg aria-hidden="true" width="22" height="10" viewBox="0 0 26 12" fill="none" stroke="#0D0D0D" stroke-width="1.8"><path d="M0 6h24M19 1l5 5-5 5"></path></svg></a>
-</div>
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 24px">
+<div class="cinta" aria-hidden="true"><div class="cinta-pista">
+  <span>Pintura</span><span>✶</span><span>Dibujo</span><span>✶</span><span>Escultura</span><span>✶</span><span>Performance</span><span>✶</span><span>Arte como memoria viva</span><span>✶</span>
+  <span>Pintura</span><span>✶</span><span>Dibujo</span><span>✶</span><span>Escultura</span><span>✶</span><span>Performance</span><span>✶</span><span>Arte como memoria viva</span><span>✶</span>
+</div></div>
 
-<article style="display: flex; flex-direction: column; gap: 10px">
-<img src="../img/peter.jpg" alt="Peter" style="width: 100%; height: 280px; object-fit: cover; display: block">
-<div style="display: flex; justify-content: space-between; gap: 8px; align-items: flex-end">
-<div style="display: flex; flex-direction: column; font-size: 13px; line-height: 1.4">
-<strong style="font-size: 15px; font-weight: 600">Peter</strong>
-<span>Dibujo digital</span>
-<span style="color: #5A554D">Caja de luz</span>
-</div>
-<button type="button" aria-label="Ver detalle de la obra" style="width: 44px; height: 44px; border: 0; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" stroke="#0D0D0D" stroke-width="1.8"><path d="M8 1v14M1 8h14"></path></svg></button>
-</div>
-</article>
-
-<article style="display: flex; flex-direction: column; gap: 10px">
-<img src="../img/sergielectrdj.jpg" alt="Sergielectrdj" style="width: 100%; height: 280px; object-fit: cover; display: block">
-<div style="display: flex; justify-content: space-between; gap: 8px; align-items: flex-end">
-<div style="display: flex; flex-direction: column; font-size: 13px; line-height: 1.4">
-<strong style="font-size: 15px; font-weight: 600">Sergielectrdj</strong>
-<span>Dibujo digital</span>
-<span style="color: #5A554D">Caja de luz</span>
-</div>
-<button type="button" aria-label="Ver detalle de la obra" style="width: 44px; height: 44px; border: 0; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" stroke="#0D0D0D" stroke-width="1.8"><path d="M8 1v14M1 8h14"></path></svg></button>
-</div>
-</article>
-
-<article style="display: flex; flex-direction: column; gap: 10px">
-<img src="../img/amantes.jpg" alt="Amantes" style="width: 100%; height: 280px; object-fit: cover; display: block">
-<div style="display: flex; justify-content: space-between; gap: 8px; align-items: flex-end">
-<div style="display: flex; flex-direction: column; font-size: 13px; line-height: 1.4">
-<strong style="font-size: 15px; font-weight: 600">Amantes</strong>
-<span>Técnica mixta</span>
-<span style="color: #5A554D">[MEDIDAS]</span>
-</div>
-<button type="button" aria-label="Ver detalle de la obra" style="width: 44px; height: 44px; border: 0; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" stroke="#0D0D0D" stroke-width="1.8"><path d="M8 1v14M1 8h14"></path></svg></button>
-</div>
-</article>
-
-<article style="display: flex; flex-direction: column; gap: 10px">
-<img src="../img/morrina.jpg" alt="Morriña entre amapolas" style="width: 100%; height: 280px; object-fit: cover; display: block">
-<div style="display: flex; justify-content: space-between; gap: 8px; align-items: flex-end">
-<div style="display: flex; flex-direction: column; font-size: 13px; line-height: 1.4">
-<strong style="font-size: 15px; font-weight: 600">Morriña entre amapolas</strong>
-<span>Óleo sobre lienzo</span>
-<span style="color: #5A554D">50 × 70 cm</span>
-</div>
-<button type="button" aria-label="Ver detalle de la obra" style="width: 44px; height: 44px; border: 0; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" stroke="#0D0D0D" stroke-width="1.8"><path d="M8 1v14M1 8h14"></path></svg></button>
-</div>
-</article>
-
-<article style="display: flex; flex-direction: column; gap: 10px">
-<img src="../img/entrada-ano.jpg" alt="Entrada en el año con corazones rosas" style="width: 100%; height: 280px; object-fit: cover; display: block">
-<div style="display: flex; justify-content: space-between; gap: 8px; align-items: flex-end">
-<div style="display: flex; flex-direction: column; font-size: 13px; line-height: 1.4">
-<strong style="font-size: 15px; font-weight: 600">Entrada en el año con corazones rosas</strong>
-<span>Mixta sobre tablex</span>
-<span style="color: #5A554D">110 × 90 cm</span>
-</div>
-<button type="button" aria-label="Ver detalle de la obra" style="width: 44px; height: 44px; border: 0; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" stroke="#0D0D0D" stroke-width="1.8"><path d="M8 1v14M1 8h14"></path></svg></button>
-</div>
-</article>
-
-</div>
+<section id="obra" class="obra papel">
+  <div class="contenedor">
+    <div class="obra-cabeza">
+      <h2 class="etiqueta">Obra destacada</h2>
+      <a class="enlace" href="#obra">Ver toda la obra <svg width="22" height="10" viewBox="0 0 26 12" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M0 6h24M19 1l5 5-5 5"/></svg></a>
+    </div>
+    <div class="obra-cuerpo">
+      <div class="obras">
+        <figure class="pieza"><div class="pieza-img"><img src="../img/peter.jpg" alt="Peter, dibujo digital" loading="lazy"></div><figcaption><span><strong>Peter</strong>Dibujo digital<small>Caja de luz</small></span><button class="mas" type="button" aria-label="Ver detalle de Peter">+</button></figcaption></figure>
+        <figure class="pieza"><div class="pieza-img"><img src="../img/sergielectrdj.jpg" alt="Sergielectrdj, dibujo digital" loading="lazy"></div><figcaption><span><strong>Sergielectrdj</strong>Dibujo digital<small>Caja de luz</small></span><button class="mas" type="button" aria-label="Ver detalle de Sergielectrdj">+</button></figcaption></figure>
+        <figure class="pieza"><div class="pieza-img"><img src="../img/amantes.jpg" alt="Amantes, técnica mixta" loading="lazy"></div><figcaption><span><strong>Amantes</strong>Técnica mixta<small>[MEDIDAS]</small></span><button class="mas" type="button" aria-label="Ver detalle de Amantes">+</button></figcaption></figure>
+        <figure class="pieza"><div class="pieza-img"><img src="../img/entrada-ano.jpg" alt="Entrada en el año con corazones rosas" loading="lazy" style="object-position:40% center"></div><figcaption><span><strong>Entrada en el año</strong>Mixta sobre tablex<small>110 × 90 cm</small></span><button class="mas" type="button" aria-label="Ver detalle de Entrada en el año">+</button></figcaption></figure>
+        <figure class="pieza"><div class="pieza-img"><img src="../img/cerrando-bares.jpg" alt="Cerrando los bares a las 3, dibujo digital" loading="lazy"></div><figcaption><span><strong>Cerrando los bares a las 3</strong>Dibujo digital<small>Caja de luz</small></span><button class="mas" type="button" aria-label="Ver detalle de Cerrando los bares a las 3">+</button></figcaption></figure>
+      </div>
+      <p class="lema mano inclinado">Arte <br>como <br>memoria <br>viva</p>
+    </div>
+  </div>
 </section>
 
-<section style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 560px), 1fr))">
-<div style="background: #0D0D0D; color: #F2EEE6; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr))">
-<div style="padding: 56px 40px; display: flex; flex-direction: column; gap: 22px; justify-content: center">
-<p style="margin: 0; font-family: 'Permanent Marker', cursive; font-size: 30px; line-height: 1.2; transform: rotate(-4deg); transform-origin: left">El taller<br>como territorio</p>
-<span aria-hidden="true" style="width: 40px; height: 2px; background: #F2EEE6"></span>
-<p style="margin: 0; color: #E2DDD3">Miras al otro lado: un lugar de investigación, prueba y descubrimiento, donde la materia cobra forma. Exposiciones y talleres de pintura, dibujo y escultura.</p>
-<a href="#videos" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 14px; min-height: 48px; padding: 0 20px; border: 2px solid #F2EEE6; color: #F2EEE6; text-decoration: none; font-size: 13px; font-weight: 600; letter-spacing: 0.1em">VER PROCESO <svg aria-hidden="true" width="22" height="10" viewBox="0 0 26 12" fill="none" stroke="#F2EEE6" stroke-width="1.8"><path d="M0 6h24M19 1l5 5-5 5"></path></svg></a>
-</div>
-<img src="../img/taller.jpg" alt="Interior del taller Miras al otro lado" style="width: 100%; height: 100%; min-height: 420px; object-fit: cover; display: block; filter: grayscale(1)">
-</div>
-<div style="display: flex; flex-direction: column">
-<div style="padding: 48px 40px 28px; display: flex; flex-direction: column; gap: 14px; position: relative">
-<h2 style="margin: 0; display: flex; align-items: center; gap: 20px; font-family: Archivo, sans-serif; font-weight: 500; font-size: 22px; letter-spacing: 0.18em; text-transform: uppercase">Escultura <span aria-hidden="true" style="display: inline-block; width: 48px; height: 1px; background: #0D0D0D"></span></h2>
-<p style="margin: 0; max-width: 380px">«Ocaña en tránsito»: talla directa sobre grafito de alta densidad, bruñida en bronce. 320 cm y 600 kg.</p>
-<a href="#" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 14px; min-height: 44px; padding: 0 18px; border: 2px solid #0D0D0D; text-decoration: none; font-size: 13px; font-weight: 600; letter-spacing: 0.1em">VER ESCULTURA <svg aria-hidden="true" width="22" height="10" viewBox="0 0 26 12" fill="none" stroke="#0D0D0D" stroke-width="1.8"><path d="M0 6h24M19 1l5 5-5 5"></path></svg></a>
-<p style="position: absolute; right: 36px; top: 40px; margin: 0; font-family: 'Permanent Marker', cursive; font-size: 22px; line-height: 1.2; text-align: right; transform: rotate(-8deg)">Materia<br>cuerpo<br>tiempo</p>
-</div>
-<div style="flex: 1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); min-height: 280px">
-<img src="../img/ocana-1.jpg" alt="Ocaña en tránsito, vista frontal" style="width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(1)">
-<img src="../img/ocana-2.jpg" alt="Ocaña en tránsito, vista lateral" style="width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(1)">
-</div>
-</div>
+<section class="duo">
+  <div class="panel-negro">
+    <div class="panel-texto">
+      <p class="titulo-mano mano inclinado">El taller<br>como territorio</p>
+      <span class="raya" aria-hidden="true"></span>
+      <p>Miras al otro lado: un lugar de investigación, prueba y descubrimiento, donde la materia cobra forma. Exposiciones y talleres de pintura, dibujo y escultura.</p>
+      <a class="boton" href="#videos">Ver proceso <svg viewBox="0 0 26 12" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M0 6h24M19 1l5 5-5 5"/></svg></a>
+    </div>
+    <img class="foto-gris" src="../img/taller.jpg" alt="David Mirás en su taller Miras al otro lado" loading="lazy">
+  </div>
+  <div class="escultura papel">
+    <div class="panel-texto">
+      <h2 class="etiqueta">Escultura</h2>
+      <p style="max-width:380px">«Ocaña en tránsito»: talla directa sobre grafito de alta densidad, bruñida en bronce. 320 cm de altura y 600 kg.</p>
+      <a class="boton" href="#obra">Ver escultura <svg viewBox="0 0 26 12" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M0 6h24M19 1l5 5-5 5"/></svg></a>
+      <p class="nota-esc mano">Materia<br>cuerpo<br>tiempo</p>
+    </div>
+    <div class="escultura-fotos">
+      <img src="../img/ocana-1.jpg" alt="Ocaña en tránsito, detalle del puño" loading="lazy">
+      <img src="../img/ocana-2.jpg" alt="Ocaña en tránsito, vista completa" loading="lazy">
+    </div>
+  </div>
 </section>
 
-<section id="videos" style="background: #0D0D0D; color: #F2EEE6">
-<div style="max-width: 1360px; margin: 0 auto; padding: 80px 40px">
-<div style="display: flex; flex-wrap: wrap; gap: 16px 40px; justify-content: space-between; align-items: end; margin-bottom: 36px">
-<h2 style="margin: 0; display: flex; align-items: center; gap: 20px; font-family: Archivo, sans-serif; font-weight: 500; font-size: 22px; letter-spacing: 0.18em; text-transform: uppercase">Vídeos <span aria-hidden="true" style="display: inline-block; width: 48px; height: 1px; background: #F2EEE6"></span></h2>
-<p style="margin: 0; font-family: 'Permanent Marker', cursive; font-size: 24px; color: #E0261B; transform: rotate(-3deg)">El arte también es movimiento</p>
-</div>
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 20px">
-<figure style="margin: 0; grid-column: span 2; display: flex; flex-direction: column; gap: 12px">
-<div style="position: relative; height: 460px; overflow: hidden; background: #1A1A1A">
-<img src="../img/mutabilidad.jpg" alt="Fotograma de la performance Mutabilidad" style="width: 100%; height: 100%; object-fit: cover; display: block">
-<button type="button" aria-label="Reproducir vídeo Mutabilidad" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 88px; height: 88px; border-radius: 50%; border: 2px solid #F2EEE6; background: #E0261B; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="#F2EEE6"><path d="M7 4.5v15l12-7.5z"></path></svg></button>
-</div>
-<figcaption style="font-size: 15px"><strong style="font-weight: 600">Mutabilidad</strong> · performance de 42 minutos en Sala Freedonia, con sonido de Natan Nexus</figcaption>
-</figure>
-<figure style="margin: 0; display: flex; flex-direction: column; gap: 12px">
-<div style="position: relative; height: 460px; overflow: hidden; background: #1A1A1A">
-<img src="../img/sergielectrdj.jpg" alt="Retrato digital Sergielectrdj" style="width: 100%; height: 100%; object-fit: cover; display: block">
-<button type="button" aria-label="Reproducir vídeo de dibujo digital" style="position: absolute; left: 20px; bottom: 20px; width: 60px; height: 60px; border-radius: 50%; border: 2px solid #F2EEE6; background: #E0261B; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="#F2EEE6"><path d="M7 4.5v15l12-7.5z"></path></svg></button>
-</div>
-<figcaption style="font-size: 15px"><strong style="font-weight: 600">Dibujar con el dedo</strong> · proceso de un retrato digital</figcaption>
-</figure>
-</div>
-</div>
+<section id="videos" class="videos">
+  <div class="contenedor">
+    <div class="obra-cabeza">
+      <h2 class="etiqueta">Vídeos</h2>
+      <p class="mano rojo">El arte también es movimiento</p>
+    </div>
+    <div class="videos-rejilla">
+      <figure class="video">
+        <div class="video-marco"><img src="../img/mutabilidad.jpg" alt="Cartel de la performance Mutabilidad" loading="lazy"><button class="play" type="button" aria-label="Reproducir vídeo Mutabilidad"><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M6 4l14 8-14 8z"/></svg></button></div>
+        <figcaption><strong>Mutabilidad</strong> · performance de 42 minutos en Sala Freedonia, con sonido de Natan Nexus</figcaption>
+      </figure>
+      <figure class="video peq">
+        <div class="video-marco"><img src="../img/programando-pixeles.jpg" alt="Retrato digital Programando píxeles" loading="lazy"><button class="play" type="button" aria-label="Reproducir vídeo de dibujo digital"><svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M6 4l14 8-14 8z"/></svg></button></div>
+        <figcaption><strong>Dibujar con el dedo</strong> · proceso de un retrato digital</figcaption>
+      </figure>
+    </div>
+  </div>
 </section>
 
-<section style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 560px), 1fr))">
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr))">
-<div style="padding: 48px 40px; display: flex; flex-direction: column; gap: 14px">
-<h2 style="margin: 0; font-family: Archivo, sans-serif; font-weight: 500; font-size: 20px; letter-spacing: 0.16em; text-transform: uppercase">Instalación / Performance</h2>
-<p style="margin: 0">Espacios, objetos e ideas que dialogan con el entorno. Collages interactivos, ensamblajes y acciones en directo.</p>
-<a href="#" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 14px; min-height: 44px; padding: 0 18px; border: 2px solid #0D0D0D; text-decoration: none; font-size: 13px; font-weight: 600; letter-spacing: 0.1em">VER PROYECTOS <svg aria-hidden="true" width="22" height="10" viewBox="0 0 26 12" fill="none" stroke="#0D0D0D" stroke-width="1.8"><path d="M0 6h24M19 1l5 5-5 5"></path></svg></a>
-<p style="margin: 8px 0 0; font-family: 'Permanent Marker', cursive; font-size: 20px; line-height: 1.2; transform: rotate(-5deg); transform-origin: left">El espacio<br>también cuenta</p>
-</div>
-<img src="../img/instalacion.jpg" alt="Instalación Cosas que nunca te dije y te las digo ahora" style="width: 100%; height: 100%; min-height: 360px; object-fit: cover; display: block">
-</div>
-<div id="sobre" style="padding: 48px 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 28px; align-items: center">
-<div style="display: flex; flex-direction: column; gap: 14px">
-<h2 style="margin: 0; display: flex; align-items: center; gap: 20px; font-family: Archivo, sans-serif; font-weight: 500; font-size: 20px; letter-spacing: 0.16em; text-transform: uppercase">Sobre David <span aria-hidden="true" style="display: inline-block; width: 40px; height: 1px; background: #0D0D0D"></span></h2>
-<p style="margin: 0; font-style: italic">«La obra de David Mirás es muy instintiva: son interpretaciones de sus mundos, reflejos de muchos instantes vividos, imaginados e incluso robados con solo mirar.»</p>
-<p style="margin: 0; font-size: 13px; color: #5A554D">Tom Puey, coleccionista e historiador</p>
-<a href="#" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 14px; min-height: 44px; padding: 0 18px; border: 2px solid #0D0D0D; text-decoration: none; font-size: 13px; font-weight: 600; letter-spacing: 0.1em">CONOCER MÁS <svg aria-hidden="true" width="22" height="10" viewBox="0 0 26 12" fill="none" stroke="#0D0D0D" stroke-width="1.8"><path d="M0 6h24M19 1l5 5-5 5"></path></svg></a>
-</div>
-<img src="../img/nati.jpg" alt="Nati conectóloga, óleo de David Mirás" style="width: 100%; height: 340px; object-fit: cover; display: block">
-</div>
+<section class="duo instal-sobre">
+  <div class="instal papel">
+    <div class="panel-texto">
+      <h2 class="etiqueta">Instalación / Proyectos</h2>
+      <p>Espacios, objetos e ideas que dialogan con el entorno. Collages interactivos, ensamblajes y acciones en directo.</p>
+      <a class="boton" href="#exposiciones">Ver proyectos <svg viewBox="0 0 26 12" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M0 6h24M19 1l5 5-5 5"/></svg></a>
+      <p class="mano-roja mano inclinado">El espacio<br>también cuenta</p>
+    </div>
+    <img src="../img/instalacion.jpg" alt="Instalación «Cosas que nunca te dije y te las digo ahora»" loading="lazy">
+  </div>
+  <div id="sobre" class="sobre papel">
+    <div class="panel-texto">
+      <h2 class="etiqueta">Sobre David</h2>
+      <blockquote>«La obra de David Mirás es muy instintiva: son interpretaciones de sus mundos, reflejos de muchos instantes vividos, imaginados e incluso robados con solo mirar.»</blockquote>
+      <p class="autor">Tom Puey, coleccionista e historiador</p>
+      <a class="boton" href="#contacto">Conocer más <svg viewBox="0 0 26 12" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M0 6h24M19 1l5 5-5 5"/></svg></a>
+    </div>
+    <img src="../img/nati.jpg" alt="Nati conectóloga, óleo de David Mirás" loading="lazy">
+  </div>
 </section>
 
-<section id="exposiciones" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); border-top: 1px solid #D4CEC3">
-<div style="background: #0D0D0D; color: #F2EEE6; position: relative; overflow: hidden; min-height: 300px; display: flex; flex-direction: column; justify-content: space-between; padding: 40px">
-<img src="../img/entrada-ano.jpg" alt="" style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.35; display: block">
-<h2 style="position: relative; margin: 0; font-family: Archivo, sans-serif; font-weight: 500; font-size: 22px; letter-spacing: 0.18em; text-transform: uppercase">Exposiciones</h2>
-<p style="position: relative; margin: 0; font-family: 'Permanent Marker', cursive; font-size: 32px; line-height: 1.15; transform: rotate(-5deg); transform-origin: left">El arte también<br>es <span style="color: #E0261B">encuentro</span></p>
-</div>
-<div style="padding: 32px 40px; display: flex; flex-direction: column; gap: 8px">
-<ul style="list-style: none; margin: 0; padding: 0">
-
-<li style="display: grid; grid-template-columns: 140px minmax(0, 1fr); gap: 24px; padding: 14px 0; border-bottom: 1px solid #D4CEC3">
-<span style="font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #5A554D">Colectiva</span>
-<span style="display: flex; flex-direction: column; line-height: 1.35"><strong style="font-weight: 600">Yo, tú, nosotros, ellas</strong><span style="font-size: 14px; color: #5A554D">Inusual Project, Barcelona</span></span>
-</li>
-
-<li style="display: grid; grid-template-columns: 140px minmax(0, 1fr); gap: 24px; padding: 14px 0; border-bottom: 1px solid #D4CEC3">
-<span style="font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #5A554D">Performance</span>
-<span style="display: flex; flex-direction: column; line-height: 1.35"><strong style="font-weight: 600">Mutabilidad</strong><span style="font-size: 14px; color: #5A554D">Sala Freedonia, Barcelona</span></span>
-</li>
-
-<li style="display: grid; grid-template-columns: 140px minmax(0, 1fr); gap: 24px; padding: 14px 0; border-bottom: 1px solid #D4CEC3">
-<span style="font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #5A554D">Colectiva</span>
-<span style="display: flex; flex-direction: column; line-height: 1.35"><strong style="font-weight: 600">Testimoni del conflicte</strong><span style="font-size: 14px; color: #5A554D">Poble Vell, Corbera d’Ebre</span></span>
-</li>
-
-<li style="display: grid; grid-template-columns: 140px minmax(0, 1fr); gap: 24px; padding: 14px 0; border-bottom: 1px solid #D4CEC3">
-<span style="font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #5A554D">Taller</span>
-<span style="display: flex; flex-direction: column; line-height: 1.35"><strong style="font-weight: 600">Miras al otro lado</strong><span style="font-size: 14px; color: #5A554D">Barcelona</span></span>
-</li>
-
-</ul>
-<a href="#" style="align-self: flex-end; display: inline-flex; align-items: center; gap: 10px; min-height: 44px; font-size: 13px; font-weight: 600; letter-spacing: 0.1em">VER TODAS LAS EXPOSICIONES <svg aria-hidden="true" width="22" height="10" viewBox="0 0 26 12" fill="none" stroke="#0D0D0D" stroke-width="1.8"><path d="M0 6h24M19 1l5 5-5 5"></path></svg></a>
-</div>
+<section id="exposiciones" class="expos papel">
+  <div class="expos-foto">
+    <img src="../img/rompiendo-tiempos.jpg" alt="" loading="lazy">
+    <h2 class="etiqueta">Exposiciones</h2>
+    <p class="mano inclinado">El arte también<br>es encuentro</p>
+  </div>
+  <div class="expos-lista">
+    <ul>
+      <li><span>Colectiva</span><span><strong>Yo, tú, nosotros, ellas</strong><small>Inusual Project, Barcelona</small></span></li>
+      <li><span>Performance</span><span><strong>Mutabilidad</strong><small>Sala Freedonia, Barcelona</small></span></li>
+      <li><span>Colectiva</span><span><strong>Testimoni del conflicte</strong><small>Poble Vell, Corbera d’Ebre</small></span></li>
+      <li><span>Taller</span><span><strong>Miras al otro lado</strong><small>Barcelona</small></span></li>
+    </ul>
+    <a class="enlace" href="#exposiciones">Ver todas las exposiciones <svg width="22" height="10" viewBox="0 0 26 12" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M0 6h24M19 1l5 5-5 5"/></svg></a>
+  </div>
 </section>
+</main>
 
-<footer id="contacto" style="background: #0D0D0D; color: #F2EEE6">
-<div style="max-width: 1360px; margin: 0 auto; padding: 56px 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 40px; align-items: center">
-<div style="display: flex; flex-direction: column; gap: 14px">
-<h2 style="margin: 0; font-family: Archivo, sans-serif; font-weight: 500; font-size: 20px; letter-spacing: 0.18em; text-transform: uppercase">Contacto</h2>
-<p style="margin: 0; color: #E2DDD3">Hablemos sobre proyectos, encargos, exposiciones o talleres.</p>
-<a href="mailto:[EMAIL]" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 14px; min-height: 48px; padding: 0 20px; border: 2px solid #F2EEE6; color: #F2EEE6; text-decoration: none; font-size: 13px; font-weight: 600; letter-spacing: 0.1em">ESCRIBIR <svg aria-hidden="true" width="22" height="10" viewBox="0 0 26 12" fill="none" stroke="#F2EEE6" stroke-width="1.8"><path d="M0 6h24M19 1l5 5-5 5"></path></svg></a>
-</div>
-<div style="display: flex; flex-direction: column; gap: 10px; font-size: 15px">
-<a href="mailto:[EMAIL]" style="color: #F2EEE6">[EMAIL]</a>
-<span>Barcelona, España</span>
-<div style="display: flex; gap: 8px">
-<a href="#" aria-label="Instagram" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F2EEE6" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="0.8" fill="#F2EEE6"></circle></svg></a>
-<a href="#" aria-label="Facebook" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F2EEE6" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="3"></rect><path d="M15 8h-2a2 2 0 0 0-2 2v11M9 13h5"></path></svg></a>
-<a href="#" aria-label="YouTube" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="24" height="22" viewBox="0 0 24 24" fill="none" stroke="#F2EEE6" stroke-width="1.8"><rect x="2" y="5" width="20" height="14" rx="4"></rect><path d="M10 9l5 3-5 3z" fill="#F2EEE6"></path></svg></a>
-</div>
-</div>
-<p style="margin: 0; font-family: 'Permanent Marker', cursive; font-size: 48px; text-align: right; transform: rotate(-5deg)">David Mirás<span style="display: block; height: 3px; width: 60%; margin-left: auto; background: #E0261B"></span></p>
-</div>
+<footer id="contacto" class="contacto">
+  <div class="contenedor">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <h2 class="etiqueta">Contacto</h2>
+      <p>Hablemos sobre proyectos, encargos, exposiciones o talleres.</p>
+      <a class="boton lleno" href="mailto:[EMAIL]" style="align-self:flex-start">Escribir <svg viewBox="0 0 26 12" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M0 6h24M19 1l5 5-5 5"/></svg></a>
+    </div>
+    <div class="datos">
+      <a href="mailto:[EMAIL]"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>[EMAIL]</a>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Barcelona, España</span>
+      <div class="redes">
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" width="22" height="22"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg></a>
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" width="22" height="22"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M15 8h-2a2 2 0 0 0-2 2v11M9 13h5"/></svg></a>
+        <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" width="24" height="22"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor"/></svg></a>
+      </div>
+    </div>
+    <p class="firma-pie">David Mirás</p>
+  </div>
+  <div class="legal"><div class="contenedor"><span>© 2026 David Mirás · Barcelona</span><span><a href="#">Aviso legal</a> · <a href="#">Privacidad</a></span></div></div>
 </footer>
 
-</div>
-
+<script>
+var b=document.querySelector('.abrir'),m=document.getElementById('menu');
+b.addEventListener('click',function(){var o=m.classList.toggle('abierto');b.setAttribute('aria-expanded',o);b.setAttribute('aria-label',o?'Cerrar menú':'Abrir menú');});
+m.addEventListener('click',function(e){if(e.target.tagName==='A'){m.classList.remove('abierto');b.setAttribute('aria-expanded',false);}});
+</script>
 <script src="../barra.js"></script>
 </body>
 </html>
